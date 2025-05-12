@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,19 +38,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -96,6 +92,69 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-nunito;
   }
+}
+
+/* Custom button styles */
+.edu-btn {
+  @apply rounded-lg px-6 py-2.5 font-semibold transition-all duration-200 shadow-sm;
+}
+
+.edu-btn-blue {
+  @apply bg-edu-blue text-white hover:bg-opacity-90 active:bg-opacity-80;
+}
+
+.edu-btn-green {
+  @apply bg-edu-green text-white hover:bg-opacity-90 active:bg-opacity-80;
+}
+
+.edu-btn-orange {
+  @apply bg-edu-orange text-white hover:bg-opacity-90 active:bg-opacity-80;
+}
+
+/* Custom card styles */
+.edu-card {
+  @apply bg-white shadow-md rounded-xl overflow-hidden border border-gray-100;
+}
+
+/* Custom input styles */
+.edu-input {
+  @apply rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 transition-all duration-200;
+}
+
+.edu-input-blue {
+  @apply focus:ring-edu-blue focus:border-edu-blue;
+}
+
+.edu-input-green {
+  @apply focus:ring-edu-green focus:border-edu-green;
+}
+
+.edu-input-orange {
+  @apply focus:ring-edu-orange focus:border-edu-orange;
+}
+
+/* Authentication related animations */
+.auth-animate-in {
+  animation: fadeSlideIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hover-float {
+  transition: transform 0.3s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-5px);
 }
