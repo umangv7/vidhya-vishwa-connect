@@ -21,13 +21,48 @@ const AuthLayout = ({
   backgroundClass = "bg-gradient-to-r from-blue-50 to-indigo-50",
   overlayColor = "bg-black/10"
 }: AuthLayoutProps) => {
+  // Particles for background animation
+  const particles = Array.from({ length: 15 }).map((_, index) => ({
+    id: index,
+    size: Math.random() * 10 + 5,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    duration: Math.random() * 20 + 10,
+    delay: Math.random() * 5
+  }));
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className={cn("min-h-screen flex items-center justify-center p-4", backgroundClass)}
+      className={cn("min-h-screen flex items-center justify-center p-4 relative overflow-hidden", backgroundClass)}
     >
+      {/* Animated background particles */}
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-white opacity-20 pointer-events-none"
+          style={{ 
+            width: particle.size, 
+            height: particle.size,
+            left: `${particle.x}%`,
+            top: `${particle.y}%`
+          }}
+          animate={{
+            x: [0, 30, -30, 0],
+            y: [0, -30, 30, 0],
+            scale: [1, 1.2, 0.8, 1],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,7 +103,23 @@ const AuthLayout = ({
               </motion.div>
             </div>
           </motion.div>
-          <CardContent className="p-8 flex flex-col justify-center">
+          <CardContent className="p-8 flex flex-col justify-center relative">
+            {/* Extra background decoration */}
+            <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"></div>
+            <motion.div
+              className="absolute -right-12 -top-12 w-24 h-24 rounded-full bg-gradient-to-br from-orange-100/40 to-yellow-100/40 blur-xl pointer-events-none"
+              animate={{ 
+                scale: [1, 1.2, 1], 
+                rotate: [0, 180],
+                opacity: [0.3, 0.5, 0.3] 
+              }}
+              transition={{ 
+                duration: 15,
+                repeat: Infinity,
+                repeatType: "reverse" 
+              }}
+            />
             {children}
           </CardContent>
         </Card>
