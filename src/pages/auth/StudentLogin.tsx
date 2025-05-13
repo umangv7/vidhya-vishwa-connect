@@ -5,6 +5,7 @@ import LoginForm from '../../components/auth/LoginForm';
 import RegisterForm from '../../components/auth/RegisterForm';
 import MathCaptcha from '../../components/auth/MathCaptcha';
 import NewsFeed from '../../components/news/NewsFeed';
+import SolarSystem from '../../components/animations/SolarSystem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
@@ -16,6 +17,7 @@ const StudentLogin = () => {
   const [activeTab, setActiveTab] = useState<string>('login');
   const [currentTip, setCurrentTip] = useState<string>('');
   const [backgroundColorIndex, setBackgroundColorIndex] = useState(0);
+  const [showSolarSystem, setShowSolarSystem] = useState(false);
   const { toast } = useToast();
   
   // Background gradients that will rotate
@@ -52,10 +54,16 @@ const StudentLogin = () => {
     const bgInterval = setInterval(() => {
       setBackgroundColorIndex(prev => (prev + 1) % backgroundGradients.length);
     }, 15000);
+
+    // Show solar system after a short delay
+    const solarSystemTimeout = setTimeout(() => {
+      setShowSolarSystem(true);
+    }, 800);
     
     return () => {
       clearInterval(tipInterval);
       clearInterval(bgInterval);
+      clearTimeout(solarSystemTimeout);
     };
   }, []);
   
@@ -117,9 +125,10 @@ const StudentLogin = () => {
       image={studentImages[currentImageIndex]}
       imageAlt="Student studying"
       backgroundClass={backgroundGradients[backgroundColorIndex]}
+      className="md:grid-cols-3 md:max-w-7xl" // Changed to 1:2 ratio
     >
       <motion.div 
-        className="flex flex-col h-full"
+        className="flex flex-col h-full relative"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -143,6 +152,33 @@ const StudentLogin = () => {
             <Sparkles className="h-5 w-5 text-yellow-500" />
           </motion.div>
         </motion.div>
+
+        {/* Solar System Animation */}
+        {showSolarSystem && (
+          <motion.div 
+            className="w-full h-48 mb-4 relative rounded-lg overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="absolute inset-0 bg-[#030014] rounded-lg">
+              <SolarSystem />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent">
+              <p className="text-white text-xs text-center font-medium">
+                ✨ Explore the wonders of our solar system ✨
+              </p>
+            </div>
+            <motion.button 
+              className="absolute top-2 right-2 bg-white/10 hover:bg-white/20 text-white rounded-full p-1 text-xs"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => window.open('/dashboard/student', '_self')}
+            >
+              Learn more
+            </motion.button>
+          </motion.div>
+        )}
         
         {/* Floating icons in background */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -190,19 +226,19 @@ const StudentLogin = () => {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <TabsTrigger value="login">Login</TabsTrigger>
+              <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">Login</TabsTrigger>
             </motion.div>
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <TabsTrigger value="register">Register</TabsTrigger>
+              <TabsTrigger value="register" className="transition-all hover:scale-105 active:scale-95">Register</TabsTrigger>
             </motion.div>
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <TabsTrigger value="news">
+              <TabsTrigger value="news" className="transition-all hover:scale-105 active:scale-95">
                 School News
                 <Badge variant="secondary" className="ml-1 bg-edu-lightOrange text-edu-orange">New</Badge>
               </TabsTrigger>

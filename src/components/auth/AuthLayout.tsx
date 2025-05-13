@@ -67,11 +67,11 @@ const AuthLayout = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="w-full max-w-6xl"
+        className="w-full max-w-7xl" // Updated max width for landscape layout
       >
         <Card className={cn("w-full grid md:grid-cols-2 overflow-hidden shadow-xl", className)}>
           <motion.div 
-            className="hidden md:block relative"
+            className="hidden md:block relative h-full"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           >

@@ -65,6 +65,24 @@ const StudentDashboard = () => {
     }
   };
 
+  // Background images for the dashboard sections
+  const backgroundImages = [
+    "https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?auto=format&fit=crop&q=80", // Classroom
+    "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80", // Indian students
+    "https://images.unsplash.com/photo-1607453998774-d533f65dac99?auto=format&fit=crop&q=80", // School library
+    "https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?auto=format&fit=crop&q=80", // Science lab
+    "https://images.unsplash.com/photo-1577896851231-70ef132bafdf?auto=format&fit=crop&q=80" // Students studying
+  ];
+
+  // Education mascot animations
+  const [activeMascot, setActiveMascot] = useState<number | null>(null);
+  const mascots = [
+    { name: "Newton", subject: "Physics", color: "bg-blue-500" },
+    { name: "Ramanujan", subject: "Mathematics", color: "bg-green-500" },
+    { name: "Kalam", subject: "Science", color: "bg-yellow-500" },
+    { name: "Tagore", subject: "Literature", color: "bg-purple-500" }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
       {/* Header */}
@@ -76,11 +94,20 @@ const StudentDashboard = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            <Bell className="h-5 w-5 text-gray-600 hover:text-edu-blue cursor-pointer" />
+            <motion.div
+              whileHover={{ scale: 1.15, rotate: [0, -10, 10, -10, 0] }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Bell className="h-5 w-5 text-gray-600 hover:text-edu-blue cursor-pointer" />
+            </motion.div>
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-edu-lightBlue rounded-full flex items-center justify-center mr-2">
+              <motion.div 
+                className="w-8 h-8 bg-edu-lightBlue rounded-full flex items-center justify-center mr-2"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 <CircleUserRound className="h-5 w-5 text-edu-blue" />
-              </div>
+              </motion.div>
               <span className="font-medium text-sm hidden md:inline">Priya Sharma</span>
             </div>
           </div>
@@ -95,7 +122,14 @@ const StudentDashboard = () => {
           animate="visible"
           variants={fadeIn}
         >
-          <div className="bg-gradient-to-r from-sky-500 to-blue-600 p-6 md:p-8 rounded-xl relative z-10">
+          <div 
+            className="bg-gradient-to-r from-sky-500 to-blue-600 p-6 md:p-8 rounded-xl relative z-10 overflow-hidden"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(14, 165, 233, 0.9), rgba(37, 99, 235, 0.9)), url(${backgroundImages[1]})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
             <div className="flex flex-col md:flex-row gap-6 items-center">
               <div className="md:w-3/5">
                 <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
@@ -105,30 +139,44 @@ const StudentDashboard = () => {
                   Class {studentData.class}, Section {studentData.section} • Roll No: {studentData.rollNo}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                  <motion.div 
+                    className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     <p className="text-sm text-sky-100">Attendance</p>
                     <p className="text-xl font-bold text-white">{studentData.attendance}</p>
-                  </div>
-                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                  </motion.div>
+                  <motion.div 
+                    className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     <p className="text-sm text-sky-100">Assignments</p>
                     <p className="text-xl font-bold text-white">5/6</p>
-                  </div>
-                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                  </motion.div>
+                  <motion.div 
+                    className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     <p className="text-sm text-sky-100">Academic Year</p>
                     <p className="text-xl font-bold text-white">2025-26</p>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
               
               <motion.div 
-                className="md:w-2/5 flex justify-center"
+                className="md:w-2/5 flex justify-center relative z-10"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1613898159496-92336e9a9e8f?auto=format&fit=crop&q=80" 
+                <motion.img 
+                  src={backgroundImages[0]} 
                   alt="Indian students studying" 
                   className="h-40 md:h-48 rounded-lg shadow-lg object-cover"
+                  whileHover={{ scale: 1.05, rotate: -2 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 />
               </motion.div>
             </div>
@@ -146,30 +194,87 @@ const StudentDashboard = () => {
             />
           </div>
         </motion.div>
+
+        {/* Educational Mascots */}
+        <motion.div
+          className="mb-8"
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+        >
+          <h2 className="text-xl font-semibold mb-4">Your Learning Companions</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {mascots.map((mascot, index) => (
+              <motion.div
+                key={index}
+                className={`rounded-lg p-4 text-white ${mascot.color} cursor-pointer shadow-md relative overflow-hidden`}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" 
+                }}
+                whileTap={{ scale: 0.98 }}
+                onMouseEnter={() => setActiveMascot(index)}
+                onMouseLeave={() => setActiveMascot(null)}
+              >
+                <div className="flex items-center">
+                  <motion.div 
+                    className={`w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mr-3`}
+                    animate={activeMascot === index ? {
+                      rotate: [0, 10, -10, 10, 0],
+                      scale: [1, 1.1, 1]
+                    } : {}}
+                    transition={{ duration: 1 }}
+                  >
+                    <BookOpen className="h-6 w-6 text-white" />
+                  </motion.div>
+                  <div>
+                    <h3 className="font-bold">{mascot.name}</h3>
+                    <p className="text-sm text-white/80">{mascot.subject} Guide</p>
+                  </div>
+                </div>
+                
+                {activeMascot === index && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-3 text-xs text-white/90"
+                  >
+                    Click to explore lessons and activities with {mascot.name}!
+                  </motion.div>
+                )}
+                
+                <motion.div 
+                  className="absolute -bottom-8 -right-8 w-16 h-16 bg-white/10 rounded-full"
+                  animate={activeMascot === index ? {
+                    scale: [1, 1.5, 1],
+                  } : {}}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
         
         {/* Dashboard Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className="grid grid-cols-3 md:grid-cols-5 lg:w-[600px] mb-6">
-            <TabsTrigger value="overview" className="flex gap-2">
-              <BarChart4 className="h-4 w-4" />
-              <span className="hidden md:inline">Overview</span>
-            </TabsTrigger>
-            <TabsTrigger value="subjects" className="flex gap-2">
-              <BookMarked className="h-4 w-4" />
-              <span className="hidden md:inline">Subjects</span>
-            </TabsTrigger>
-            <TabsTrigger value="assignments" className="flex gap-2">
-              <FileText className="h-4 w-4" />
-              <span className="hidden md:inline">Assignments</span>
-            </TabsTrigger>
-            <TabsTrigger value="schedule" className="flex gap-2">
-              <Calendar className="h-4 w-4" />
-              <span className="hidden md:inline">Schedule</span>
-            </TabsTrigger>
-            <TabsTrigger value="resources" className="flex gap-2">
-              <ScrollText className="h-4 w-4" />
-              <span className="hidden md:inline">Resources</span>
-            </TabsTrigger>
+            {["overview", "subjects", "assignments", "schedule", "resources"].map((tab) => (
+              <motion.div
+                key={tab}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <TabsTrigger value={tab} className="flex gap-2">
+                  {tab === "overview" && <BarChart4 className="h-4 w-4" />}
+                  {tab === "subjects" && <BookMarked className="h-4 w-4" />}
+                  {tab === "assignments" && <FileText className="h-4 w-4" />}
+                  {tab === "schedule" && <Calendar className="h-4 w-4" />}
+                  {tab === "resources" && <ScrollText className="h-4 w-4" />}
+                  <span className="hidden md:inline capitalize">{tab}</span>
+                </TabsTrigger>
+              </motion.div>
+            ))}
           </TabsList>
 
           <TabsContent value="overview">
@@ -381,12 +486,14 @@ const StudentDashboard = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="hover:shadow-md transition-shadow">
-                    <CardHeader>
+                  <Card className="hover:shadow-md transition-shadow overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-sky-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <CardHeader className="relative z-10">
                       <CardTitle>{subject.name}</CardTitle>
                       <CardDescription>Teacher: {subject.teacher}</CardDescription>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="relative z-10">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-sm text-gray-500">Progress</span>
                         <span className="font-medium">{subject.progress}%</span>
@@ -400,9 +507,13 @@ const StudentDashboard = () => {
                         />
                       </div>
                     </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline">View Materials</Button>
-                      <Button className="bg-edu-blue hover:bg-edu-blue/90">Enter Classroom</Button>
+                    <CardFooter className="flex justify-between relative z-10">
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Button variant="outline" className="transition-all hover:bg-white">View Materials</Button>
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                        <Button className="bg-edu-blue hover:bg-edu-blue/90 transition-all">Enter Classroom</Button>
+                      </motion.div>
                     </CardFooter>
                   </Card>
                 </motion.div>
@@ -477,11 +588,16 @@ const StudentDashboard = () => {
               <motion.div
                 key={index}
                 variants={fadeIn}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                whileHover={{ 
+                  y: -5, 
+                  transition: { duration: 0.2 },
+                  boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)"
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Card className="cursor-pointer">
+                <Card className="cursor-pointer overflow-hidden group">
                   <CardContent className="p-4 flex flex-col items-center text-center">
-                    <div className={`w-12 h-12 rounded-full ${item.color} flex items-center justify-center mb-3 mt-2`}>
+                    <div className={`w-12 h-12 rounded-full ${item.color} flex items-center justify-center mb-3 mt-2 group-hover:scale-110 transition-transform duration-200`}>
                       {item.icon}
                     </div>
                     <h3 className="font-medium">{item.title}</h3>
@@ -494,10 +610,15 @@ const StudentDashboard = () => {
         
         {/* Inspirational Quote */}
         <motion.div
-          className="mt-8 bg-gradient-to-r from-edu-lightBlue to-sky-50 p-6 rounded-lg border border-sky-100"
+          className="mt-8 bg-gradient-to-r from-edu-lightBlue to-sky-50 p-6 rounded-lg border border-sky-100 overflow-hidden relative"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(225, 239, 254, 0.9), rgba(240, 249, 255, 0.9)), url(${backgroundImages[2]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
         >
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/4 flex justify-center mb-4 md:mb-0">
@@ -508,13 +629,28 @@ const StudentDashboard = () => {
                 initial={{ scale: 0.9, opacity: 0.8 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1 }}
+                whileHover={{ scale: 1.05, rotate: -5 }}
               />
             </div>
-            <div className="md:w-3/4 md:pl-6">
+            <div className="md:w-3/4 md:pl-6 relative">
+              <motion.div
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -top-6 -left-6 text-4xl text-edu-blue opacity-20"
+              >
+                "
+              </motion.div>
               <blockquote className="text-lg italic text-gray-700 mb-3">
                 "Dream is not what you see in sleep, dream is something which doesn't let you sleep."
               </blockquote>
               <cite className="text-sm font-semibold block">— A.P.J. Abdul Kalam, Former President of India</cite>
+              <motion.div
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -bottom-8 -right-6 text-4xl text-edu-blue opacity-20"
+              >
+                "
+              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -529,9 +665,13 @@ const StudentDashboard = () => {
           </div>
           
           <div className="flex gap-4">
-            <Link to="#" className="text-sm text-gray-500 hover:text-edu-blue">Help Center</Link>
-            <Link to="#" className="text-sm text-gray-500 hover:text-edu-blue">Privacy Policy</Link>
-            <Link to="#" className="text-sm text-gray-500 hover:text-edu-blue">Contact Support</Link>
+            {["Help Center", "Privacy Policy", "Contact Support"].map((item, index) => (
+              <motion.div key={index} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link to="#" className="text-sm text-gray-500 hover:text-edu-blue transition-colors">
+                  {item}
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </footer>

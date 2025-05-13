@@ -46,6 +46,7 @@ const TutorLogin = () => {
       imageAlt="Teacher in classroom"
       backgroundClass="bg-gradient-to-r from-edu-lightGreen to-green-50"
       overlayColor="bg-black/20"
+      className="md:grid-cols-3 md:max-w-7xl" // Changed to 1:2 ratio (3 columns total)
     >
       <div className="flex flex-col h-full">
         <motion.div 
@@ -72,9 +73,9 @@ const TutorLogin = () => {
         
         <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
-            <TabsTrigger value="news">
+            <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">Login</TabsTrigger>
+            <TabsTrigger value="register" className="transition-all hover:scale-105 active:scale-95">Register</TabsTrigger>
+            <TabsTrigger value="news" className="transition-all hover:scale-105 active:scale-95">
               Educational Updates
               <Badge variant="secondary" className="ml-1 bg-edu-lightGreen text-edu-green">New</Badge>
             </TabsTrigger>
@@ -145,7 +146,7 @@ const TutorLogin = () => {
                 New tutor?{" "}
                 <motion.button 
                   onClick={() => setActiveTab("register")}
-                  className="text-edu-green hover:underline font-medium"
+                  className="text-edu-green hover:underline font-medium transition-all hover:scale-105 active:scale-95"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
