@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { School, User, BookOpen, ScrollText, Award, Calendar, Bell } from 'lucide-react';
+import { School, User, BookOpen, ScrollText, Award, Calendar, Bell, Image, BookOpen as BookOpenIcon, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Index = () => {
@@ -20,6 +19,22 @@ const Index = () => {
       }
     }
   };
+
+  // Educational images to show in the gallery
+  const educationalImages = [
+    "https://images.unsplash.com/photo-1577896851231-70ef132bafdf?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80",
+  ];
+
+  const classroomImages = [
+    "https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&q=80",
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white flex flex-col">
@@ -88,14 +103,54 @@ const Index = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <img 
-              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80" 
-              alt="Indian students learning" 
-              className="rounded-lg shadow-lg w-full max-w-lg object-cover hover-float"
-            />
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80" 
+                alt="Indian students learning" 
+                className="rounded-lg shadow-lg w-full max-w-lg object-cover hover-float relative z-10"
+              />
+              <motion.div
+                className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-r from-blue-300 to-sky-400 rounded-lg rotate-6 z-0 opacity-70"
+                animate={{ rotate: [6, 0, 6], scale: [1, 1.05, 1] }}
+                transition={{ duration: 10, repeat: Infinity }}
+              />
+              <motion.div
+                className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-r from-orange-300 to-yellow-200 rounded-lg -rotate-6 z-0 opacity-70"
+                animate={{ rotate: [-6, 0, -6], scale: [1, 1.05, 1] }}
+                transition={{ duration: 8, repeat: Infinity }}
+              />
+            </div>
           </motion.div>
         </div>
       </section>
+        
+      {/* Visual Education Banner */}
+      <motion.section
+        className="container mx-auto px-4 py-12 overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        <div className="relative">
+          <h2 className="text-2xl font-bold text-center mb-8">Learning Through Visual Exploration</h2>
+          <div className="flex overflow-x-auto py-4 gap-4 scrollbar-hide">
+            {educationalImages.map((img, index) => (
+              <motion.div 
+                key={index}
+                className="flex-shrink-0 w-64 h-48 rounded-lg overflow-hidden"
+                whileHover={{ scale: 1.05, y: -5 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <img src={img} alt={`Educational scene ${index + 1}`} className="w-full h-full object-cover transition-transform" />
+              </motion.div>
+            ))}
+          </div>
+          <div className="absolute left-0 top-1/2 bottom-1/2 w-12 bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="absolute right-0 top-1/2 bottom-1/2 w-12 bg-gradient-to-l from-white to-transparent z-10" />
+        </div>
+      </motion.section>
         
       {/* User Type Cards */}
       <section className="container mx-auto px-4 py-16">
@@ -259,6 +314,47 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Interactive Classroom Gallery */}
+      <motion.section 
+        className="container mx-auto px-4 py-16"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="text-center mb-10">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Sparkles className="h-8 w-8 mx-auto text-yellow-500 mb-2" />
+            <h2 className="text-3xl font-bold">Modern Learning Environment</h2>
+            <p className="text-gray-600 mt-2">Designed to inspire creativity and knowledge acquisition</p>
+          </motion.div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {classroomImages.map((img, index) => (
+            <motion.div
+              key={index}
+              className="relative overflow-hidden rounded-lg shadow-md aspect-video group"
+              whileHover={{ scale: 1.02 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index }}
+            >
+              <img src={img} alt={`Classroom ${index + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent group-hover:opacity-100 flex items-end">
+                <div className="p-4 text-white">
+                  <h3 className="font-semibold text-lg">Modern Classroom {index + 1}</h3>
+                  <p className="text-sm text-white/80">Equipped with latest educational technology</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
       {/* News Section */}
       <section className="container mx-auto px-4 py-16">
         <motion.div 
@@ -308,6 +404,74 @@ const Index = () => {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* Visual Learning Tools */}
+      <motion.section 
+        className="bg-gradient-to-r from-indigo-50 to-purple-50 py-16"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold">Visual Learning Tools</h2>
+            <p className="text-gray-600">Enhance your learning experience with interactive tools</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Virtual Lab",
+                icon: <BookOpenIcon className="h-10 w-10" />,
+                color: "from-blue-500 to-sky-400",
+                image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80"
+              },
+              {
+                title: "3D Models",
+                icon: <Image className="h-10 w-10" />,
+                color: "from-green-500 to-teal-400",
+                image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80"
+              },
+              {
+                title: "Digital Library",
+                icon: <BookOpen className="h-10 w-10" />,
+                color: "from-purple-500 to-indigo-400",
+                image: "https://images.unsplash.com/photo-1529148482759-b35b25c5f44d?auto=format&fit=crop&q=80"
+              },
+              {
+                title: "Interactive Maps",
+                icon: <Sparkles className="h-10 w-10" />,
+                color: "from-amber-500 to-orange-400",
+                image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80"
+              }
+            ].map((tool, index) => (
+              <motion.div
+                key={index}
+                className="overflow-hidden rounded-xl shadow-md"
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index }}
+              >
+                <div className="relative h-48">
+                  <img 
+                    src={tool.image} 
+                    alt={tool.title} 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${tool.color} opacity-70`}></div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 mb-3">
+                      {tool.icon}
+                    </div>
+                    <h3 className="text-white font-semibold text-lg text-center">{tool.title}</h3>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
 
       {/* Testimonials Section */}
       <section className="bg-gradient-to-r from-sky-100 to-blue-50 py-16">

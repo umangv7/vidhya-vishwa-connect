@@ -64,9 +64,8 @@ const TutorLogin = () => {
         >
           <motion.div
             whileHover={{ rotate: 15 }}
-            transition={{ type: "spring", stiffness: 300 }}
             animate={{ rotate: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+            transition={{ type: "spring", stiffness: 300, repeat: Infinity, duration: 5, ease: "easeInOut" }}
           >
             <Book className="h-8 w-8 text-edu-green mr-2" />
           </motion.div>
@@ -213,16 +212,15 @@ const TutorLogin = () => {
         {/* Decorative floating elements */}
         <div className="absolute bottom-5 right-5 opacity-70">
           <motion.div
-            animate={floatingAnimation}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="w-24 h-24 rounded-full bg-gradient-to-tr from-green-100 to-green-300/30 blur-xl"
           />
         </div>
         <div className="absolute top-10 right-10 opacity-50">
           <motion.div
-            animate={{
-              y: [0, -8, 0],
-              transition: { delay: 1, duration: 4, repeat: Infinity, ease: "easeInOut" }
-            }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{ delay: 1, duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="w-16 h-16 rounded-full bg-gradient-to-bl from-green-200 to-teal-100/20 blur-lg"
           />
         </div>

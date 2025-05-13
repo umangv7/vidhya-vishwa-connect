@@ -143,9 +143,8 @@ const StudentLogin = () => {
         >
           <motion.div
             whileHover={{ rotate: 15 }}
-            transition={{ type: "spring", stiffness: 300 }}
             animate={{ rotate: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 5 }}
+            transition={{ type: "spring", stiffness: 300, repeat: Infinity, duration: 5 }}
           >
             <School className="h-8 w-8 text-edu-orange mr-2" />
           </motion.div>
@@ -433,10 +432,8 @@ const StudentLogin = () => {
         </div>
         <div className="absolute top-10 right-10 opacity-50">
           <motion.div
-            animate={{
-              y: [0, -8, 0],
-              transition: { delay: 1, duration: 4, repeat: Infinity, ease: "easeInOut" }
-            }}
+            animate={{ y: [0, -8, 0] }}
+            transition={{ delay: 1, duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="w-16 h-16 rounded-full bg-gradient-to-bl from-yellow-200 to-orange-100/20 blur-lg"
           />
         </div>
