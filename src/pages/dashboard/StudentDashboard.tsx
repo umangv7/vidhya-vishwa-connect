@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TabsContent, Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { CircleUserRound, BookOpen, Calendar, Award, Bell, ScrollText, Clock, FileText, BarChart4, Users, BookMarked } from "lucide-react";
+import { CircleUserRound, BookOpen, Calendar, Award, Bell, ScrollText, Clock, FileText, BarChart4, Users, BookMarked, Planet, Rocket, Star } from "lucide-react";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import SolarSystem from '../../components/animations/SolarSystem';
 
 const StudentDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -83,8 +84,18 @@ const StudentDashboard = () => {
     { name: "Tagore", subject: "Literature", color: "bg-purple-500" }
   ];
 
+  // Cosmos animation states
+  const [showSolarExplorer, setShowSolarExplorer] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white bg-fixed">
+      {/* Background Patterns and Effects */}
+      <div className="fixed inset-0 z-0 opacity-10">
+        <div className="absolute inset-0 bg-pattern-grid"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-radial from-blue-300/30 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-sky-300/30 to-transparent rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-sky-100 sticky top-0 z-10">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -114,7 +125,7 @@ const StudentDashboard = () => {
         </div>
       </header>
       
-      <main className="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6 relative z-1">
         {/* Welcome Banner */}
         <motion.div 
           className="mb-8 relative overflow-hidden rounded-xl"
@@ -174,10 +185,17 @@ const StudentDashboard = () => {
                 <motion.img 
                   src={backgroundImages[0]} 
                   alt="Indian students studying" 
-                  className="h-40 md:h-48 rounded-lg shadow-lg object-cover"
+                  className="h-40 md:h-48 rounded-lg shadow-lg object-cover border-4 border-white/30"
                   whileHover={{ scale: 1.05, rotate: -2 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
                 />
+                <motion.div
+                  className="absolute -bottom-2 -right-2 w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
+                  animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0, -5, 0] }}
+                  transition={{ duration: 5, repeat: Infinity }}
+                >
+                  A+
+                </motion.div>
               </motion.div>
             </div>
             
@@ -202,7 +220,10 @@ const StudentDashboard = () => {
           initial="hidden"
           animate="visible"
         >
-          <h2 className="text-xl font-semibold mb-4">Your Learning Companions</h2>
+          <h2 className="text-xl font-semibold mb-4 flex items-center">
+            <Star className="h-5 w-5 text-yellow-500 mr-2" />
+            Your Learning Companions
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {mascots.map((mascot, index) => (
               <motion.div
@@ -255,6 +276,72 @@ const StudentDashboard = () => {
             ))}
           </div>
         </motion.div>
+
+        {/* Interactive Space Explorer Section */}
+        <motion.div 
+          className="mb-8 overflow-hidden rounded-lg border border-sky-100 shadow-sm"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: showSolarExplorer ? 1 : 0, height: showSolarExplorer ? 'auto' : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {showSolarExplorer && (
+            <div className="relative">
+              <div className="h-[300px]">
+                <SolarSystem />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <motion.h2 
+                  className="text-3xl font-bold text-white drop-shadow-lg"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                >
+                  Space Explorer
+                </motion.h2>
+              </div>
+              <div className="absolute bottom-4 right-4">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30"
+                  onClick={() => setShowSolarExplorer(false)}
+                >
+                  Close Explorer
+                </Button>
+              </div>
+            </div>
+          )}
+        </motion.div>
+        
+        {/* Space Explorer Toggle Button */}
+        {!showSolarExplorer && (
+          <motion.div 
+            className="mb-8 flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowSolarExplorer(true)}
+              className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-2 rounded-full shadow-md"
+            >
+              <Planet className="h-5 w-5" />
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+              >
+                Explore Solar System
+              </motion.span>
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <Rocket className="h-4 w-4" />
+              </motion.div>
+            </motion.button>
+          </motion.div>
+        )}
         
         {/* Dashboard Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
@@ -285,7 +372,8 @@ const StudentDashboard = () => {
                 initial="hidden"
                 animate="visible"
               >
-                <Card>
+                <Card className="overflow-hidden border border-sky-100 hover:shadow-md transition-shadow">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-cyan-300"></div>
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2">
                       <Award className="h-5 w-5 text-edu-orange" />
@@ -328,7 +416,8 @@ const StudentDashboard = () => {
                 animate="visible"
                 transition={{ delay: 0.2 }}
               >
-                <Card>
+                <Card className="overflow-hidden border border-sky-100 hover:shadow-md transition-shadow">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-emerald-300"></div>
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2">
                       <Calendar className="h-5 w-5 text-edu-green" />
@@ -347,7 +436,7 @@ const StudentDashboard = () => {
                         <motion.div 
                           key={event.id}
                           variants={fadeIn}
-                          className="flex items-start p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                          className="flex items-start p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200"
                         >
                           <div className="mr-3 mt-1">
                             <Clock className="h-4 w-4 text-gray-500" />
@@ -379,7 +468,8 @@ const StudentDashboard = () => {
                 transition={{ delay: 0.3 }}
                 className="lg:col-span-1 md:col-span-2 lg:col-start-3"
               >
-                <Card>
+                <Card className="overflow-hidden border border-sky-100 hover:shadow-md transition-shadow">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-300"></div>
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2">
                       <Bell className="h-5 w-5 text-edu-orange" />
@@ -398,7 +488,8 @@ const StudentDashboard = () => {
                         <motion.div 
                           key={announcement.id}
                           variants={fadeIn}
-                          className="border-l-4 border-edu-orange pl-3 py-1"
+                          className="border-l-4 border-edu-orange pl-3 py-2 hover:bg-orange-50 rounded-r-lg transition-colors"
+                          whileHover={{ x: 5 }}
                         >
                           <h4 className="font-medium">{announcement.title}</h4>
                           <p className="text-xs text-gray-500">{announcement.date}</p>
@@ -423,7 +514,10 @@ const StudentDashboard = () => {
               animate="visible"
               transition={{ delay: 0.4 }}
             >
-              <h2 className="text-xl font-semibold mb-4">Educational Resources</h2>
+              <h2 className="text-xl font-semibold mb-4 flex items-center">
+                <BookMarked className="h-5 w-5 text-edu-blue mr-2" />
+                Educational Resources
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   {
@@ -458,7 +552,7 @@ const StudentDashboard = () => {
                     whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   >
                     <Link to="#" className="block h-full">
-                      <div className="relative h-40 rounded-lg overflow-hidden group">
+                      <div className="relative h-48 rounded-lg overflow-hidden group shadow-md">
                         <img 
                           src={item.image} 
                           alt={item.title}
@@ -469,6 +563,12 @@ const StudentDashboard = () => {
                           <h3 className="text-white font-semibold text-lg">{item.title}</h3>
                           <p className="text-white/90 text-sm">{item.description}</p>
                         </div>
+                        <motion.div
+                          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          whileHover={{ scale: 1.2, rotate: 90 }}
+                        >
+                          <Rocket className="h-4 w-4 text-white" />
+                        </motion.div>
                       </div>
                     </Link>
                   </motion.div>
@@ -488,6 +588,7 @@ const StudentDashboard = () => {
                 >
                   <Card className="hover:shadow-md transition-shadow overflow-hidden group">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-sky-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-300 to-sky-300"></div>
                     
                     <CardHeader className="relative z-10">
                       <CardTitle>{subject.name}</CardTitle>
@@ -577,7 +678,10 @@ const StudentDashboard = () => {
           initial="hidden"
           animate="visible"
         >
-          <h2 className="text-xl font-semibold mb-4">Quick Access</h2>
+          <h2 className="text-xl font-semibold mb-4 flex items-center">
+            <Rocket className="h-5 w-5 text-purple-500 mr-2" />
+            Quick Access
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { title: "Classmates", icon: <Users className="h-6 w-6" />, color: "bg-purple-100 text-purple-600" },
@@ -595,7 +699,7 @@ const StudentDashboard = () => {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Card className="cursor-pointer overflow-hidden group">
+                <Card className="cursor-pointer overflow-hidden group border border-transparent hover:border-gray-200">
                   <CardContent className="p-4 flex flex-col items-center text-center">
                     <div className={`w-12 h-12 rounded-full ${item.color} flex items-center justify-center mb-3 mt-2 group-hover:scale-110 transition-transform duration-200`}>
                       {item.icon}
@@ -625,7 +729,7 @@ const StudentDashboard = () => {
               <motion.img
                 src="https://images.unsplash.com/photo-1606293926249-9393de223044?auto=format&fit=crop&q=80"
                 alt="APJ Abdul Kalam"
-                className="w-36 h-36 object-cover rounded-full shadow-md"
+                className="w-36 h-36 object-cover rounded-full shadow-md border-4 border-white"
                 initial={{ scale: 0.9, opacity: 0.8 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1 }}

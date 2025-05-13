@@ -16,6 +16,8 @@ const TutorLogin = () => {
     "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80",
     "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80",
     "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1522071901873-411886a10004?auto=format&fit=crop&q=80", // Added Indian classroom
+    "https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?auto=format&fit=crop&q=80", // Added teaching scene
   ];
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -40,13 +42,19 @@ const TutorLogin = () => {
   
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
+  // Animation variants
+  const floatingAnimation = {
+    y: [0, -10, 0],
+    transition: { repeat: Infinity, duration: 3, ease: "easeInOut" }
+  };
+
   return (
     <AuthLayout 
       image={tutorImages[currentImageIndex]}
       imageAlt="Teacher in classroom"
       backgroundClass="bg-gradient-to-r from-edu-lightGreen to-green-50"
       overlayColor="bg-black/20"
-      className="md:grid-cols-3 md:max-w-7xl" // Changed to 1:2 ratio (3 columns total)
+      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full overflow-hidden" // Changed for landscape
     >
       <div className="flex flex-col h-full">
         <motion.div 
@@ -58,6 +66,8 @@ const TutorLogin = () => {
           <motion.div
             whileHover={{ rotate: 15 }}
             transition={{ type: "spring", stiffness: 300 }}
+            animate={{ rotate: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 5 }}
           >
             <Book className="h-8 w-8 text-edu-green mr-2" />
           </motion.div>
@@ -73,11 +83,17 @@ const TutorLogin = () => {
         
         <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">Login</TabsTrigger>
-            <TabsTrigger value="register" className="transition-all hover:scale-105 active:scale-95">Register</TabsTrigger>
+            <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">
+              <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }}>Login</motion.div>
+            </TabsTrigger>
+            <TabsTrigger value="register" className="transition-all hover:scale-105 active:scale-95">
+              <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }}>Register</motion.div>
+            </TabsTrigger>
             <TabsTrigger value="news" className="transition-all hover:scale-105 active:scale-95">
-              Educational Updates
-              <Badge variant="secondary" className="ml-1 bg-edu-lightGreen text-edu-green">New</Badge>
+              <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }} className="flex items-center">
+                Educational Updates
+                <Badge variant="secondary" className="ml-1 bg-edu-lightGreen text-edu-green">New</Badge>
+              </motion.div>
             </TabsTrigger>
           </TabsList>
           
@@ -194,6 +210,23 @@ const TutorLogin = () => {
             <NewsFeed color="green" />
           </TabsContent>
         </Tabs>
+
+        {/* Decorative floating elements */}
+        <div className="absolute bottom-5 right-5 opacity-70">
+          <motion.div
+            animate={floatingAnimation}
+            className="w-24 h-24 rounded-full bg-gradient-to-tr from-green-100 to-green-300/30 blur-xl"
+          />
+        </div>
+        <div className="absolute top-10 right-10 opacity-50">
+          <motion.div
+            animate={{
+              ...floatingAnimation,
+              transition: { delay: 1, ...floatingAnimation.transition }
+            }}
+            className="w-16 h-16 rounded-full bg-gradient-to-bl from-green-200 to-teal-100/20 blur-lg"
+          />
+        </div>
       </div>
     </AuthLayout>
   );

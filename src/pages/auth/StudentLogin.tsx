@@ -7,7 +7,7 @@ import MathCaptcha from '../../components/auth/MathCaptcha';
 import NewsFeed from '../../components/news/NewsFeed';
 import SolarSystem from '../../components/animations/SolarSystem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain } from 'lucide-react';
+import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Planet, Rocket } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
@@ -82,6 +82,8 @@ const StudentLogin = () => {
     "https://images.unsplash.com/photo-1577896851231-70ef132bafdf?auto=format&fit=crop&q=80",
     "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80",
     "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80", // Added Indian students
+    "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80", // Added classroom scene
   ];
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -117,7 +119,9 @@ const StudentLogin = () => {
   const floatingIcons = [
     { Icon: BookOpen, color: "text-edu-orange", delay: 0 },
     { Icon: Brain, color: "text-edu-orange", delay: 0.5 },
-    { Icon: Stars, color: "text-yellow-500", delay: 1 }
+    { Icon: Stars, color: "text-yellow-500", delay: 1 },
+    { Icon: Planet, color: "text-blue-500", delay: 1.5 },
+    { Icon: Rocket, color: "text-purple-500", delay: 2 }
   ];
 
   return (
@@ -125,7 +129,8 @@ const StudentLogin = () => {
       image={studentImages[currentImageIndex]}
       imageAlt="Student studying"
       backgroundClass={backgroundGradients[backgroundColorIndex]}
-      className="md:grid-cols-3 md:max-w-7xl" // Changed to 1:2 ratio
+      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full overflow-hidden" // Changed for landscape
+      overlayColor="bg-black/10"
     >
       <motion.div 
         className="flex flex-col h-full relative"
@@ -134,12 +139,14 @@ const StudentLogin = () => {
         animate="visible"
       >
         <motion.div 
-          className="flex items-center justify-center mb-6"
+          className="flex items-center justify-center mb-4"
           variants={itemVariants}
         >
           <motion.div
             whileHover={{ rotate: 15 }}
             transition={{ type: "spring", stiffness: 300 }}
+            animate={{ rotate: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 5 }}
           >
             <School className="h-8 w-8 text-edu-orange mr-2" />
           </motion.div>
@@ -153,30 +160,43 @@ const StudentLogin = () => {
           </motion.div>
         </motion.div>
 
-        {/* Solar System Animation */}
+        {/* Solar System Animation with interactive elements */}
         {showSolarSystem && (
           <motion.div 
-            className="w-full h-48 mb-4 relative rounded-lg overflow-hidden"
+            className="w-full h-60 mb-3 relative rounded-lg overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="absolute inset-0 bg-[#030014] rounded-lg">
+            <div className="absolute inset-0 rounded-lg">
               <SolarSystem />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent">
+            <motion.div 
+              className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1 }}
+            >
               <p className="text-white text-xs text-center font-medium">
                 ✨ Explore the wonders of our solar system ✨
               </p>
-            </div>
-            <motion.button 
-              className="absolute top-2 right-2 bg-white/10 hover:bg-white/20 text-white rounded-full p-1 text-xs"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => window.open('/dashboard/student', '_self')}
+            </motion.div>
+            <motion.div 
+              className="absolute top-2 right-2 flex gap-1"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 1.2, type: "spring" }}
             >
-              Learn more
-            </motion.button>
+              <motion.button 
+                className="bg-white/10 hover:bg-white/20 text-white rounded-full p-1 text-xs flex items-center gap-1"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => window.open('/dashboard/student', '_self')}
+              >
+                <Rocket className="h-3 w-3" />
+                <span>Explore</span>
+              </motion.button>
+            </motion.div>
           </motion.div>
         )}
         
@@ -221,33 +241,39 @@ const StudentLogin = () => {
         </div>
         
         <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full relative z-10">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsList className="grid w-full grid-cols-3 mb-4">
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">Login</TabsTrigger>
+              <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">
+                <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }}>Login</motion.div>
+              </TabsTrigger>
             </motion.div>
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              <TabsTrigger value="register" className="transition-all hover:scale-105 active:scale-95">Register</TabsTrigger>
+              <TabsTrigger value="register" className="transition-all hover:scale-105 active:scale-95">
+                <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }}>Register</motion.div>
+              </TabsTrigger>
             </motion.div>
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
               <TabsTrigger value="news" className="transition-all hover:scale-105 active:scale-95">
-                School News
-                <Badge variant="secondary" className="ml-1 bg-edu-lightOrange text-edu-orange">New</Badge>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }} className="flex items-center">
+                  School News
+                  <Badge variant="secondary" className="ml-1 bg-edu-lightOrange text-edu-orange">New</Badge>
+                </motion.div>
               </TabsTrigger>
             </motion.div>
           </TabsList>
           
-          <TabsContent value="login" className="space-y-6 animate-fade-in">
+          <TabsContent value="login" className="space-y-4 animate-fade-in">
             <motion.div 
-              className="text-center mb-6"
+              className="text-center mb-4"
               variants={itemVariants}
             >
               <h2 className="text-xl font-semibold">Welcome back, student!</h2>
@@ -264,7 +290,7 @@ const StudentLogin = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-edu-orange/30 mb-6 shadow-md"
+              className="p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg border border-edu-orange/30 mb-4 shadow-md"
               whileHover={{ scale: 1.02, boxShadow: "0 10px 25px -5px rgba(255,126,71,0.1)" }}
             >
               <div className="flex items-center">
@@ -288,31 +314,33 @@ const StudentLogin = () => {
               </motion.p>
             </motion.div>
             
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white rounded-lg shadow-lg p-4 transform"
-              whileHover={{ boxShadow: "0 15px 30px -10px rgba(0,0,0,0.1)" }}
-            >
-              <MathCaptcha 
-                onVerification={handleCaptchaVerification} 
-                className="mb-6"
-              />
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white rounded-lg shadow-lg p-5"
-              whileHover={{ boxShadow: "0 15px 30px -10px rgba(0,0,0,0.1)" }}
-            >
-              <LoginForm 
-                userType="student"
-                className={captchaVerified ? "opacity-100" : "opacity-50 pointer-events-none"}
-              />
-            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4 transform"
+                whileHover={{ boxShadow: "0 15px 30px -10px rgba(0,0,0,0.1)" }}
+              >
+                <MathCaptcha 
+                  onVerification={handleCaptchaVerification} 
+                  className="mb-4"
+                />
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4"
+                whileHover={{ boxShadow: "0 15px 30px -10px rgba(0,0,0,0.1)" }}
+              >
+                <LoginForm 
+                  userType="student"
+                  className={captchaVerified ? "opacity-100" : "opacity-50 pointer-events-none"}
+                />
+              </motion.div>
+            </div>
             
             {!captchaVerified && (
               <motion.div
@@ -354,7 +382,7 @@ const StudentLogin = () => {
           
           <TabsContent value="register">
             <motion.div 
-              className="text-center mb-6"
+              className="text-center mb-4"
               variants={itemVariants}
             >
               <h2 className="text-xl font-semibold">Join as a Student</h2>
@@ -365,7 +393,7 @@ const StudentLogin = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-lg shadow-lg p-5"
+              className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4"
               whileHover={{ boxShadow: "0 15px 30px -10px rgba(0,0,0,0.1)" }}
             >
               <RegisterForm userType="student" />
@@ -375,7 +403,7 @@ const StudentLogin = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-center mt-6"
+              className="text-center mt-4"
             >
               <p className="text-gray-600 text-sm">
                 Already have an account?{" "}
@@ -395,6 +423,24 @@ const StudentLogin = () => {
             <NewsFeed color="orange" />
           </TabsContent>
         </Tabs>
+
+        {/* Decorative floating elements */}
+        <div className="absolute bottom-5 right-5 opacity-70">
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="w-24 h-24 rounded-full bg-gradient-to-tr from-orange-100 to-amber-200/30 blur-xl"
+          />
+        </div>
+        <div className="absolute top-10 right-10 opacity-50">
+          <motion.div
+            animate={{
+              y: [0, -8, 0],
+              transition: { delay: 1, duration: 4, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="w-16 h-16 rounded-full bg-gradient-to-bl from-yellow-200 to-orange-100/20 blur-lg"
+          />
+        </div>
       </motion.div>
     </AuthLayout>
   );
