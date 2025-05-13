@@ -158,3 +158,95 @@
 .hover-float:hover {
   transform: translateY(-5px);
 }
+
+/* New animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes pulse-gentle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Parallax effect */
+.parallax {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  transition: transform 0.5s cubic-bezier(.17,.67,.83,.67);
+  z-index: -1;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-edu-blue to-edu-green;
+}
+
+/* Link hover effect */
+.link-hover {
+  @apply relative inline-block;
+}
+
+.link-hover:after {
+  @apply content-[''] absolute w-full scale-x-0 h-0.5 bg-edu-blue bottom-0 left-0 origin-bottom-right transition-transform duration-300;
+}
+
+.link-hover:hover:after {
+  @apply scale-x-100 origin-bottom-left;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg;
+}
+
+/* Image highlight effect */
+.image-highlight {
+  @apply relative overflow-hidden;
+}
+
+.image-highlight:after {
+  @apply content-[''] absolute inset-0 bg-gradient-to-tr from-edu-blue/20 to-transparent opacity-0 transition-opacity duration-300;
+}
+
+.image-highlight:hover:after {
+  @apply opacity-100;
+}

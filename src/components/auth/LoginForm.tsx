@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
 import { Key, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface LoginFormProps {
   userType: "student" | "tutor" | "admin";
@@ -83,19 +84,36 @@ const LoginForm = ({ userType, className, onLoginSuccess }: LoginFormProps) => {
     }
   };
 
+  const inputVariants = {
+    focus: { scale: 1.02, transition: { duration: 0.2 } },
+    blur: { scale: 1, transition: { duration: 0.2 } }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className={cn("space-y-5 auth-animate-in", className)}>
+    <motion.form 
+      onSubmit={handleSubmit} 
+      className={cn("space-y-5 auth-animate-in", className)}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="space-y-2">
         <Label htmlFor="username">Username</Label>
-        <Input
-          id="username"
-          type="text"
-          placeholder={`Enter your ${userType} username`}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          className="edu-input"
-        />
+        <motion.div
+          whileFocus="focus"
+          animate="blur"
+          variants={inputVariants}
+        >
+          <Input
+            id="username"
+            type="text"
+            placeholder={`Enter your ${userType} username`}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className="edu-input edu-input-blue"
+          />
+        </motion.div>
       </div>
 
       <div className="space-y-2">
@@ -115,7 +133,12 @@ const LoginForm = ({ userType, className, onLoginSuccess }: LoginFormProps) => {
             Forgot password?
           </a>
         </div>
-        <div className="relative">
+        <motion.div 
+          className="relative"
+          whileFocus="focus"
+          animate="blur"
+          variants={inputVariants}
+        >
           <Input
             id="password"
             type="password"
@@ -123,10 +146,10 @@ const LoginForm = ({ userType, className, onLoginSuccess }: LoginFormProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="edu-input"
+            className="edu-input edu-input-blue"
           />
           <Key className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-        </div>
+        </motion.div>
       </div>
 
       <div className="flex items-center space-x-2">
@@ -143,13 +166,18 @@ const LoginForm = ({ userType, className, onLoginSuccess }: LoginFormProps) => {
         </label>
       </div>
 
-      <Button
-        type="submit"
-        className={`w-full edu-btn ${getButtonColor()}`}
-        disabled={isLoading}
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
       >
-        {isLoading ? "Signing in..." : "Sign in"}
-      </Button>
+        <Button
+          type="submit"
+          className={`w-full edu-btn ${getButtonColor()}`}
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing in..." : "Sign in"}
+        </Button>
+      </motion.div>
 
       <div className="text-center">
         <span className="text-sm text-gray-500">
@@ -158,7 +186,7 @@ const LoginForm = ({ userType, className, onLoginSuccess }: LoginFormProps) => {
             : "Don't have an account? Contact administrator"}
         </span>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

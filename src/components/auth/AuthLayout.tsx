@@ -18,11 +18,11 @@ const AuthLayout = ({
   className, 
   image, 
   imageAlt,
-  backgroundClass = "bg-gradient-to-r from-blue-50 to-indigo-50",
+  backgroundClass = "bg-gradient-to-r from-sky-100 to-blue-50",
   overlayColor = "bg-black/10"
 }: AuthLayoutProps) => {
   // Particles for background animation
-  const particles = Array.from({ length: 15 }).map((_, index) => ({
+  const particles = Array.from({ length: 20 }).map((_, index) => ({
     id: index,
     size: Math.random() * 10 + 5,
     x: Math.random() * 100,
@@ -42,7 +42,7 @@ const AuthLayout = ({
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full bg-white opacity-20 pointer-events-none"
+          className="absolute rounded-full bg-sky-200 opacity-30 pointer-events-none"
           style={{ 
             width: particle.size, 
             height: particle.size,
@@ -105,10 +105,10 @@ const AuthLayout = ({
           </motion.div>
           <CardContent className="p-8 flex flex-col justify-center relative">
             {/* Extra background decoration */}
-            <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-sky-50/30 to-transparent pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-sky-50/30 to-transparent pointer-events-none"></div>
             <motion.div
-              className="absolute -right-12 -top-12 w-24 h-24 rounded-full bg-gradient-to-br from-orange-100/40 to-yellow-100/40 blur-xl pointer-events-none"
+              className="absolute -right-12 -top-12 w-24 h-24 rounded-full bg-gradient-to-br from-sky-100/40 to-blue-100/40 blur-xl pointer-events-none"
               animate={{ 
                 scale: [1, 1.2, 1], 
                 rotate: [0, 180],
