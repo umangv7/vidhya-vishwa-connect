@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { TabsContent, Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { CircleUserRound, BookOpen, Calendar, Award, Bell, ScrollText, Clock, FileText, BarChart4, Users, BookMarked, Planet, Rocket, Star } from "lucide-react";
+import { CircleUserRound, BookOpen, Calendar, Award, Bell, ScrollText, Clock, FileText, BarChart4, Users, BookMarked, Globe, Rocket, Star } from "lucide-react";
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SolarSystem from '../../components/animations/SolarSystem';
@@ -191,7 +190,7 @@ const StudentDashboard = () => {
                 />
                 <motion.div
                   className="absolute -bottom-2 -right-2 w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg"
-                  animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0, -5, 0] }}
+                  animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 5, repeat: Infinity }}
                 >
                   A+
@@ -326,7 +325,7 @@ const StudentDashboard = () => {
               onClick={() => setShowSolarExplorer(true)}
               className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-2 rounded-full shadow-md"
             >
-              <Planet className="h-5 w-5" />
+              <Globe className="h-5 w-5" />
               <motion.span
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}

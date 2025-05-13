@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AuthLayout from '../../components/auth/AuthLayout';
 import LoginForm from '../../components/auth/LoginForm';
@@ -7,7 +6,7 @@ import MathCaptcha from '../../components/auth/MathCaptcha';
 import NewsFeed from '../../components/news/NewsFeed';
 import SolarSystem from '../../components/animations/SolarSystem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Planet, Rocket } from 'lucide-react';
+import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Globe, Rocket } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
@@ -120,7 +119,7 @@ const StudentLogin = () => {
     { Icon: BookOpen, color: "text-edu-orange", delay: 0 },
     { Icon: Brain, color: "text-edu-orange", delay: 0.5 },
     { Icon: Stars, color: "text-yellow-500", delay: 1 },
-    { Icon: Planet, color: "text-blue-500", delay: 1.5 },
+    { Icon: Globe, color: "text-blue-500", delay: 1.5 },
     { Icon: Rocket, color: "text-purple-500", delay: 2 }
   ];
 
