@@ -72,27 +72,7 @@ const SolarSystem: React.FC = () => {
                   repeat: Infinity,
                   repeatType: "reverse"
                 }}
-              >
-                {planet.name === "Earth" && (
-                  <motion.div 
-                    className="absolute rounded-full bg-gray-300"
-                    style={{
-                      width: 6,
-                      height: 6,
-                      left: '70%',
-                      top: '10%'
-                    }}
-                    animate={{
-                      rotate: 360
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                  />
-                )}
-              </motion.div>
+              />
             );
           }
           
@@ -130,6 +110,27 @@ const SolarSystem: React.FC = () => {
                   transition: { duration: 0.3 }
                 }}
               >
+                {/* Moon for Earth */}
+                {planet.name === "Earth" && (
+                  <motion.div 
+                    className="absolute rounded-full bg-gray-300"
+                    style={{
+                      width: 6,
+                      height: 6,
+                      left: '70%',
+                      top: '10%'
+                    }}
+                    animate={{
+                      rotate: 360
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                  />
+                )}
+                
                 {/* Saturn's rings */}
                 {planet.name === "Saturn" && (
                   <div 
