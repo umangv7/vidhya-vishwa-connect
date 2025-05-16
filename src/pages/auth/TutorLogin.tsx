@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import AuthLayout from '../../components/auth/AuthLayout';
 import LoginForm from '../../components/auth/LoginForm';
@@ -40,25 +41,20 @@ const TutorLogin = () => {
   
   const [hoveredResource, setHoveredResource] = useState<number | null>(null);
 
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: { repeat: Infinity, duration: 3, ease: "easeInOut" }
-  };
-
   return (
     <AuthLayout 
       image={tutorImages[currentImageIndex]}
       imageAlt="Teacher in classroom"
       backgroundClass="bg-gradient-to-r from-edu-lightBlue to-blue-50"
       overlayColor="bg-black/20"
-      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full overflow-hidden"
+      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full"
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full w-full">
         <motion.div 
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center justify-center mb-6"
+          className="flex items-center justify-center mb-6 flex-shrink-0"
         >
           <motion.div
             whileHover={{ rotate: 15 }}
@@ -77,8 +73,13 @@ const TutorLogin = () => {
           </motion.div>
         </motion.div>
         
-        <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full flex-grow flex flex-col">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
+        <Tabs 
+          defaultValue="login" 
+          value={activeTab} 
+          onValueChange={setActiveTab} 
+          className="w-full flex-grow flex flex-col min-h-0"
+        >
+          <TabsList className="grid w-full grid-cols-3 mb-6 flex-shrink-0">
             <TabsTrigger value="login" className="transition-all hover:scale-105 active:scale-95">
               <motion.div whileHover={{ y: -2 }} whileTap={{ y: 2 }}>Login</motion.div>
             </TabsTrigger>
@@ -93,8 +94,8 @@ const TutorLogin = () => {
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="login" className="space-y-6 animate-fade-in flex-grow overflow-y-auto min-h-0">
-            <div className="text-center mb-6">
+          <TabsContent value="login" className="space-y-6 flex-grow overflow-y-auto min-h-0 flex flex-col">
+            <div className="text-center mb-6 flex-shrink-0">
               <h2 className="text-xl font-semibold">Welcome, Educator!</h2>
               <motion.p 
                 className="text-gray-500"
@@ -109,7 +110,7 @@ const TutorLogin = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="p-4 bg-edu-lightBlue rounded-lg border border-edu-blue/20 mb-6"
+              className="p-4 bg-edu-lightBlue rounded-lg border border-edu-blue/20 mb-6 flex-shrink-0"
               whileHover={{ scale: 1.02 }}
             >
               <div className="flex items-center">
@@ -146,11 +147,12 @@ const TutorLogin = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              className="flex-grow"
             >
               <LoginForm userType="tutor" />
             </motion.div>
             
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 flex-shrink-0">
               <motion.p 
                 className="text-gray-600 text-sm"
                 whileHover={{ scale: 1.05 }}
@@ -168,8 +170,8 @@ const TutorLogin = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="register" className="space-y-6 animate-fade-in flex-grow overflow-y-auto min-h-0">
-            <div className="text-center mb-6">
+          <TabsContent value="register" className="space-y-6 flex-grow overflow-y-auto min-h-0 flex flex-col">
+            <div className="text-center mb-6 flex-shrink-0">
               <h2 className="text-xl font-semibold">Join as a Tutor</h2>
               <p className="text-gray-500">Create your educator account</p>
             </div>
@@ -178,6 +180,7 @@ const TutorLogin = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
+              className="flex-grow"
             >
               <RegisterForm userType="tutor" />
             </motion.div>
@@ -186,7 +189,7 @@ const TutorLogin = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-center mt-6"
+              className="text-center mt-6 flex-shrink-0"
             >
               <p className="text-gray-600 text-sm">
                 Already registered?{" "}
@@ -202,7 +205,7 @@ const TutorLogin = () => {
             </motion.div>
           </TabsContent>
           
-          <TabsContent value="news" className="flex-grow overflow-y-auto min-h-0">
+          <TabsContent value="news" className="flex-grow overflow-y-auto min-h-0 flex flex-col">
             <NewsFeed color="blue" />
           </TabsContent>
         </Tabs>

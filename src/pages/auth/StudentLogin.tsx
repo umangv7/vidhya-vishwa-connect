@@ -7,7 +7,7 @@ import NewsFeed from '../../components/news/NewsFeed';
 import SolarSystem from '../../components/animations/SolarSystem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Globe, Rocket } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast'; // Standardized import path
+import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -121,11 +121,11 @@ const StudentLogin = () => {
       image={studentImages[currentImageIndex]}
       imageAlt="Student studying"
       backgroundClass={backgroundGradients[backgroundColorIndex]}
-      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full overflow-hidden"
+      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full"
       overlayColor="bg-black/10"
     >
       <motion.div 
-        className="flex flex-col h-full relative overflow-y-auto p-1"
+        className="flex flex-col h-full w-full relative"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -153,7 +153,7 @@ const StudentLogin = () => {
 
         {showSolarSystem && (
           <motion.div 
-            className="w-full h-60 mb-3 relative rounded-lg overflow-hidden flex-shrink-0"
+            className="w-full h-48 mb-3 relative rounded-lg overflow-hidden flex-shrink-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -229,7 +229,12 @@ const StudentLogin = () => {
           ))}
         </div>
         
-        <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full relative z-10 flex-grow flex flex-col">
+        <Tabs 
+          defaultValue="login" 
+          value={activeTab} 
+          onValueChange={setActiveTab} 
+          className="w-full flex flex-col flex-grow min-h-0"
+        >
           <TabsList className="grid w-full grid-cols-3 mb-4 flex-shrink-0">
             <motion.div
               whileHover={{ scale: 1.03 }}
@@ -260,7 +265,7 @@ const StudentLogin = () => {
             </motion.div>
           </TabsList>
           
-          <TabsContent value="login" className="space-y-4 animate-fade-in flex-grow overflow-y-auto">
+          <TabsContent value="login" className="flex-grow flex flex-col overflow-y-auto min-h-0 space-y-4">
             <motion.div 
               className="text-center mb-4"
               variants={itemVariants}
@@ -303,7 +308,7 @@ const StudentLogin = () => {
               </motion.p>
             </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-shrink-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -336,7 +341,7 @@ const StudentLogin = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="p-3 bg-orange-50 border border-edu-orange rounded-md text-sm text-center"
+                className="p-3 bg-orange-50 border border-edu-orange rounded-md text-sm text-center flex-shrink-0"
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="flex items-center justify-center">
@@ -351,7 +356,7 @@ const StudentLogin = () => {
               </motion.div>
             )}
             
-            <div className="text-center mt-4">
+            <div className="text-center mt-4 flex-shrink-0">
               <motion.p 
                 className="text-gray-600 text-sm"
                 whileHover={{ scale: 1.05 }}
@@ -369,7 +374,7 @@ const StudentLogin = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="register" className="space-y-4 animate-fade-in flex-grow overflow-y-auto">
+          <TabsContent value="register" className="flex-grow overflow-y-auto min-h-0 space-y-4 flex flex-col">
             <motion.div 
               className="text-center mb-4"
               variants={itemVariants}
@@ -382,7 +387,7 @@ const StudentLogin = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4"
+              className="bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4 flex-grow"
               whileHover={{ boxShadow: "0 15px 30px -10px rgba(0,0,0,0.1)" }}
             >
               <RegisterForm userType="student" />
@@ -392,7 +397,7 @@ const StudentLogin = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-center mt-4"
+              className="text-center mt-4 flex-shrink-0"
             >
               <p className="text-gray-600 text-sm">
                 Already have an account?{" "}
@@ -408,7 +413,7 @@ const StudentLogin = () => {
             </motion.div>
           </TabsContent>
           
-          <TabsContent value="news" className="flex-grow overflow-y-auto">
+          <TabsContent value="news" className="flex-grow overflow-y-auto min-h-0 flex flex-col">
             <NewsFeed color="orange" />
           </TabsContent>
         </Tabs>

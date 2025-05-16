@@ -36,7 +36,7 @@ const AuthLayout = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className={cn("min-h-screen flex items-center justify-center p-4 relative overflow-hidden", backgroundClass)}
+      className={cn("min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden", backgroundClass)}
     >
       {/* Animated background particles */}
       {particles.map((particle) => (
@@ -67,7 +67,7 @@ const AuthLayout = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="w-full max-w-7xl" // Updated max width for landscape layout
+        className="w-full max-w-7xl h-full flex items-stretch"
       >
         <Card className={cn("w-full grid md:grid-cols-2 overflow-hidden shadow-xl", className)}>
           <motion.div 
@@ -103,7 +103,7 @@ const AuthLayout = ({
               </motion.div>
             </div>
           </motion.div>
-          <CardContent className="p-8 flex flex-col justify-center relative">
+          <CardContent className="p-8 flex flex-col justify-center h-full w-full relative">
             {/* Extra background decoration */}
             <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-sky-50/30 to-transparent pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-sky-50/30 to-transparent pointer-events-none"></div>
@@ -120,7 +120,9 @@ const AuthLayout = ({
                 repeatType: "reverse" 
               }}
             />
-            {children}
+            <div className="w-full h-full flex flex-col">
+              {children}
+            </div>
           </CardContent>
         </Card>
       </motion.div>
