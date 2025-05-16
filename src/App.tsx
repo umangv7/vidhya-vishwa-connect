@@ -12,6 +12,7 @@ import TutorLogin from "./pages/auth/TutorLogin";
 import AdminLogin from "./pages/auth/AdminLogin";
 import StudentDashboard from "./pages/dashboard/StudentDashboard";
 import SplashScreen from "./components/SplashScreen"; // Import the new splash screen
+import AiAssistant from "./components/ai/AiAssistant"; // Import the AI Assistant
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => {
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <AiAssistant /> {/* Add the AI Assistant here */}
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
@@ -52,3 +54,4 @@ const App = () => {
 };
 
 export default App;
+

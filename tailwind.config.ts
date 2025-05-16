@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -64,12 +63,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				edu: {
-					blue: "#1E65F3",
-					green: "#2CB67D",
-					orange: "#FF7E47",
-					lightBlue: "#E1EFFE",
-					lightGreen: "#E3F9EF",
-					lightOrange: "#FFE9DD"
+					blue: "#1E65F3", // Main accent blue
+					green: "#A0D2DB", // Changed to a light blue/cyan
+					orange: "#D6EAF8", // Changed to a very light blue
+					lightBlue: "#E1EFFE", // Kept as a light blue
+					lightGreen: "#E7F5F7", // Derived from new edu.green
+					lightOrange: "#F4F9FC"  // Derived from new edu.orange
 				}
 			},
 			borderRadius: {
