@@ -93,8 +93,9 @@ const StudentLogin = () => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % studentImages.length);
     }, 15000);
     
-    return () => clearInterval(imageInterval);
-  }, []);
+    // Clear this specific interval on unmount
+    return () => clearInterval(imageInterval); 
+  }, [studentImages.length]); // Added dependency
 
   // Animation variants for page elements
   const containerVariants = {
@@ -128,17 +129,17 @@ const StudentLogin = () => {
       image={studentImages[currentImageIndex]}
       imageAlt="Student studying"
       backgroundClass={backgroundGradients[backgroundColorIndex]}
-      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full overflow-hidden" // Changed for landscape
+      className="md:grid-cols-3 lg:grid-cols-4 md:max-w-full h-full overflow-hidden"
       overlayColor="bg-black/10"
     >
       <motion.div 
-        className="flex flex-col h-full relative"
+        className="flex flex-col h-full relative overflow-y-auto p-1"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         <motion.div 
-          className="flex items-center justify-center mb-4"
+          className="flex items-center justify-center mb-4 flex-shrink-0"
           variants={itemVariants}
         >
           <motion.div
@@ -161,7 +162,7 @@ const StudentLogin = () => {
         {/* Solar System Animation with interactive elements */}
         {showSolarSystem && (
           <motion.div 
-            className="w-full h-60 mb-3 relative rounded-lg overflow-hidden"
+            className="w-full h-60 mb-3 relative rounded-lg overflow-hidden flex-shrink-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -198,8 +199,7 @@ const StudentLogin = () => {
           </motion.div>
         )}
         
-        {/* Floating icons in background */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
           {floatingIcons.map((icon, index) => (
             <motion.div
               key={index}
@@ -226,7 +226,7 @@ const StudentLogin = () => {
                 duration: 15, 
                 repeat: Infinity, 
                 delay: icon.delay,
-                repeatType: "reverse"
+                repeatType: "mirror"
               }}
               style={{
                 left: `${Math.random() * 80 + 10}%`,
@@ -238,8 +238,8 @@ const StudentLogin = () => {
           ))}
         </div>
         
-        <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full relative z-10">
-          <TabsList className="grid w-full grid-cols-3 mb-4">
+        <Tabs defaultValue="login" value={activeTab} onValueChange={setActiveTab} className="w-full relative z-10 flex-grow flex flex-col">
+          <TabsList className="grid w-full grid-cols-3 mb-4 flex-shrink-0">
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -269,7 +269,7 @@ const StudentLogin = () => {
             </motion.div>
           </TabsList>
           
-          <TabsContent value="login" className="space-y-4 animate-fade-in">
+          <TabsContent value="login" className="space-y-4 animate-fade-in flex-grow overflow-y-auto">
             <motion.div 
               className="text-center mb-4"
               variants={itemVariants}
@@ -302,7 +302,7 @@ const StudentLogin = () => {
               </div>
               <motion.p 
                 className="text-sm text-gray-700 mt-2"
-                key={currentTip} // Key helps React recognize this as a new element when tip changes
+                key={currentTip} 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -335,7 +335,7 @@ const StudentLogin = () => {
               >
                 <LoginForm 
                   userType="student"
-                  className={captchaVerified ? "opacity-100" : "opacity-50 pointer-events-none"}
+                  className={cn(captchaVerified ? "opacity-100" : "opacity-50 pointer-events-none", "transition-opacity duration-300")}
                 />
               </motion.div>
             </div>
@@ -378,7 +378,7 @@ const StudentLogin = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="register">
+          <TabsContent value="register" className="flex-grow overflow-y-auto">
             <motion.div 
               className="text-center mb-4"
               variants={itemVariants}
@@ -417,20 +417,20 @@ const StudentLogin = () => {
             </motion.div>
           </TabsContent>
           
-          <TabsContent value="news">
+          <TabsContent value="news" className="flex-grow overflow-y-auto">
             <NewsFeed color="orange" />
           </TabsContent>
         </Tabs>
 
-        {/* Decorative floating elements */}
-        <div className="absolute bottom-5 right-5 opacity-70">
+        {/* Decorative floating elements should not interfere with scrolling */}
+        <div className="absolute bottom-5 right-5 opacity-70 pointer-events-none">
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="w-24 h-24 rounded-full bg-gradient-to-tr from-orange-100 to-amber-200/30 blur-xl"
           />
         </div>
-        <div className="absolute top-10 right-10 opacity-50">
+        <div className="absolute top-10 right-10 opacity-50 pointer-events-none">
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ delay: 1, duration: 4, repeat: Infinity, ease: "easeInOut" }}
