@@ -65,7 +65,7 @@ const TutorLogin = () => {
           <motion.div
             whileHover={{ rotate: 15 }}
             animate={{ rotate: [0, 10, 0] }}
-            transition={{ type: "spring", stiffness: 300, repeat: Infinity, duration: 5, ease: "easeInOut" }}
+            transition={{ ease: "easeInOut", duration: 5, repeat: Infinity }} // Changed: Removed type: "spring", stiffness
           >
             <Book className="h-8 w-8 text-edu-green mr-2" />
           </motion.div>

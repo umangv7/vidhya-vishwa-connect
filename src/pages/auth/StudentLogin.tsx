@@ -146,7 +146,7 @@ const StudentLogin = () => {
           <motion.div
             whileHover={{ rotate: 15 }}
             animate={{ rotate: [0, 10, 0] }}
-            transition={{ type: "spring", stiffness: 300, repeat: Infinity, duration: 5 }}
+            transition={{ ease: "easeInOut", duration: 5, repeat: Infinity }} // Changed: Removed type: "spring" and stiffness
           >
             <School className="h-8 w-8 text-edu-orange mr-2" />
           </motion.div>
