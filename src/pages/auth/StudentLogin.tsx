@@ -10,6 +10,7 @@ import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Globe, Ro
 import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const StudentLogin = () => {
   const [captchaVerified, setCaptchaVerified] = useState(false);
