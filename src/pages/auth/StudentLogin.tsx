@@ -7,7 +7,7 @@ import NewsFeed from '../../components/news/NewsFeed';
 import SolarSystem from '../../components/animations/SolarSystem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Globe, Rocket } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast'; // Changed import path
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
