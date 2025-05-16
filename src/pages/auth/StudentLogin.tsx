@@ -7,7 +7,7 @@ import NewsFeed from '../../components/news/NewsFeed';
 import SolarSystem from '../../components/animations/SolarSystem';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { School, Sparkles, MousePointer, Wand, Stars, BookOpen, Brain, Globe, Rocket } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast'; // Changed import path
+import { useToast } from '@/hooks/use-toast'; // Standardized import path
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -20,7 +20,6 @@ const StudentLogin = () => {
   const [showSolarSystem, setShowSolarSystem] = useState(false);
   const { toast } = useToast();
   
-  // Background gradients that will rotate
   const backgroundGradients = [
     "bg-gradient-to-r from-edu-lightOrange to-orange-50",
     "bg-gradient-to-r from-orange-100 to-yellow-50",
@@ -28,7 +27,6 @@ const StudentLogin = () => {
     "bg-gradient-to-bl from-yellow-50 to-orange-100",
   ];
   
-  // Study tips for students
   const tips = [
     "Remember to revise your lessons daily for better retention!",
     "Taking short breaks between study sessions can help you focus better.",
@@ -45,17 +43,14 @@ const StudentLogin = () => {
   useEffect(() => {
     setCurrentTip(tips[Math.floor(Math.random() * tips.length)]);
     
-    // Change tip every 10 seconds
     const tipInterval = setInterval(() => {
       setCurrentTip(tips[Math.floor(Math.random() * tips.length)]);
     }, 10000);
     
-    // Rotate background colors every 15 seconds
     const bgInterval = setInterval(() => {
       setBackgroundColorIndex(prev => (prev + 1) % backgroundGradients.length);
     }, 15000);
 
-    // Show solar system after a short delay
     const solarSystemTimeout = setTimeout(() => {
       setShowSolarSystem(true);
     }, 800);
@@ -82,23 +77,20 @@ const StudentLogin = () => {
     "https://images.unsplash.com/photo-1577896851231-70ef132bafdf?auto=format&fit=crop&q=80",
     "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80",
     "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80", // Added Indian students
-    "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80", // Added classroom scene
+    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80",
   ];
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   useEffect(() => {
-    // Cycle through images every 15 seconds
     const imageInterval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % studentImages.length);
     }, 15000);
     
-    // Clear this specific interval on unmount
     return () => clearInterval(imageInterval); 
-  }, [studentImages.length]); // Added dependency
+  }, [studentImages.length]);
 
-  // Animation variants for page elements
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -116,7 +108,6 @@ const StudentLogin = () => {
     visible: { y: 0, opacity: 1 }
   };
 
-  // Floating icons animation
   const floatingIcons = [
     { Icon: BookOpen, color: "text-edu-orange", delay: 0 },
     { Icon: Brain, color: "text-edu-orange", delay: 0.5 },
@@ -146,7 +137,7 @@ const StudentLogin = () => {
           <motion.div
             whileHover={{ rotate: 15 }}
             animate={{ rotate: [0, 10, 0] }}
-            transition={{ ease: "easeInOut", duration: 5, repeat: Infinity }} // Changed: Removed type: "spring" and stiffness
+            transition={{ ease: "easeInOut", duration: 5, repeat: Infinity }}
           >
             <School className="h-8 w-8 text-edu-orange mr-2" />
           </motion.div>
@@ -160,7 +151,6 @@ const StudentLogin = () => {
           </motion.div>
         </motion.div>
 
-        {/* Solar System Animation with interactive elements */}
         {showSolarSystem && (
           <motion.div 
             className="w-full h-60 mb-3 relative rounded-lg overflow-hidden flex-shrink-0"
@@ -379,7 +369,7 @@ const StudentLogin = () => {
             </div>
           </TabsContent>
           
-          <TabsContent value="register" className="flex-grow overflow-y-auto">
+          <TabsContent value="register" className="space-y-4 animate-fade-in flex-grow overflow-y-auto">
             <motion.div 
               className="text-center mb-4"
               variants={itemVariants}
@@ -423,7 +413,6 @@ const StudentLogin = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Decorative floating elements should not interfere with scrolling */}
         <div className="absolute bottom-5 right-5 opacity-70 pointer-events-none">
           <motion.div
             animate={{ y: [0, -10, 0] }}
